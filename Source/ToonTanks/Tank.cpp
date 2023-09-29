@@ -4,35 +4,106 @@
 #include "Tank.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Components/InputComponent.h"
 #include "Kismet/GameplayStatics.h"
 
-ATank::ATank() 
+
+ATank::ATank()
 {
     SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
     SpringArm->SetupAttachment(RootComponent);
 
-
     Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
     Camera->SetupAttachment(SpringArm);
-
-
+    
 }
 
-void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) 
+void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
 
     PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &ATank::Move);
+
+    PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ATank::Turn);
+    
+}
+
+// Called when the game starts or when spawned
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+
+    PlayerControllerRef = Cast<APlayerController>(GetController());
+	
+}
+
+// Called every frame
+void ATank::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	
+	if (PlayerControllerRef) 
+    {
+        FHitResult HitResult;
+        PlayerControllerRef->GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility,
+        false, HitResult);
+        RotateTurret(HitResult.ImpactPoint);
+    }
+    
+
 }
 
 
-void ATank::Move(float Value) 
+
+void ATank::Move(float Value)
 {
+    FVector DeltaLocation = FVector::ZeroVector;
+    FVector DeltaSpeedUpLocation = FVector::ZeroVector;
+    //jerry
+    DeltaLocation.X = Value * Speed * UGameplayStatics::GetWorldDeltaSeconds(this);
+    if (DeltaSpeedUpLocation.X < DeltaLocation.X) 
+    {
+        DeltaSpeedUpLocation.X += Acceleration * UGameplayStatics::GetWorldDeltaSeconds(this);
+    }
+    else {
+        DeltaSpeedUpLocation.X -= DeAcceleration * UGameplayStatics::GetWorldDeltaSeconds(this);
+    }
     
+    if (DeltaSpeedUpLocation.Y < DeltaLocation.X) 
+    {
+        DeltaSpeedUpLocation.Y += DeAcceleration * UGameplayStatics::GetWorldDeltaSeconds(this);
+    }
+    else {
+        DeltaSpeedUpLocation.Y -= DeAcceleration * UGameplayStatics::GetWorldDeltaSeconds(this);
+    }
+
+
+    if (DeltaLocation.X > 0) 
+    {
+        Moving = true;
+    }
+    else {
+        Moving = false;
+    }
+
+    AddActorLocalOffset(DeltaSpeedUpLocation, true);
+}
+
+void ATank::Turn(float Value) 
+{
+    FRotator DeltaRotation = FRotator::ZeroRotator;
     
+    DeltaRotation.Yaw = Value * TurnRate * UGameplayStatics::GetWorldDeltaSeconds(this);
+    if (!Moving && DeltaRotation.Yaw != 0) {
+        
+        DeltaRotation.Yaw *= TurnMultiplier;
+        
+    }
     
-    FVector DeltaLocation(0.f);
-	DeltaLocation.X = Value * UGameplayStatics::GetTimeSeconds(this) * Speed ;
-	AddActorLocalOffset(DeltaLocation);
+    AddActorLocalRotation(DeltaRotation, true);
+    //Napravi takache kogato si po burz vurteneto da se zabavq.
+
+
 
 }
