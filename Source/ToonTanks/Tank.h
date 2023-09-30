@@ -46,11 +46,7 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Movement");
 	float TurnMultiplier = 2.f;
 
-	UPROPERTY(EditAnywhere, Category = "Movement");
-	float Acceleration = 2.f;
-
-	UPROPERTY(EditAnywhere, Category = "Movement");
-	float DeAcceleration = 4.f;
+	
 	
 	void Move(float Value);
 

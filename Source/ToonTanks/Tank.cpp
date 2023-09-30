@@ -59,27 +59,11 @@ void ATank::Tick(float DeltaTime)
 void ATank::Move(float Value)
 {
     FVector DeltaLocation = FVector::ZeroVector;
-    FVector DeltaSpeedUpLocation = FVector::ZeroVector;
+    
+    
     //jerry
     DeltaLocation.X = Value * Speed * UGameplayStatics::GetWorldDeltaSeconds(this);
-    if (DeltaSpeedUpLocation.X < DeltaLocation.X) 
-    {
-        DeltaSpeedUpLocation.X += Acceleration * UGameplayStatics::GetWorldDeltaSeconds(this);
-    }
-    else {
-        DeltaSpeedUpLocation.X -= DeAcceleration * UGameplayStatics::GetWorldDeltaSeconds(this);
-    }
-    
-    if (DeltaSpeedUpLocation.Y < DeltaLocation.X) 
-    {
-        DeltaSpeedUpLocation.Y += DeAcceleration * UGameplayStatics::GetWorldDeltaSeconds(this);
-    }
-    else {
-        DeltaSpeedUpLocation.Y -= DeAcceleration * UGameplayStatics::GetWorldDeltaSeconds(this);
-    }
-
-
-    if (DeltaLocation.X > 0) 
+     if (DeltaLocation.X > 0) 
     {
         Moving = true;
     }
@@ -87,7 +71,7 @@ void ATank::Move(float Value)
         Moving = false;
     }
 
-    AddActorLocalOffset(DeltaSpeedUpLocation, true);
+    AddActorLocalOffset(DeltaLocation, true);
 }
 
 void ATank::Turn(float Value) 
@@ -102,7 +86,7 @@ void ATank::Turn(float Value)
     }
     
     AddActorLocalRotation(DeltaRotation, true);
-    //Napravi takache kogato si po burz vurteneto da se zabavq.
+    
 
 
 
