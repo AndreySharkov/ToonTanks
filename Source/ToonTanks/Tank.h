@@ -26,12 +26,11 @@ public:
 
 	void HandleDestruction();
 
+	APlayerController* GetTankPlayerController() const { return TankPlayerController; }
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-	
 
 private:
 
@@ -50,17 +49,13 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Movement");
 	float TurnMultiplier = 2.f;
 
-	
-	
 	void Move(float Value);
 
 	void Turn(float Value);
 
 	bool Moving = false;
 
-	
-
-	APlayerController* PlayerControllerRef;
+	APlayerController* TankPlayerController;
 
 
 };
