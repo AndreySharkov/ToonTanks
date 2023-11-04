@@ -19,6 +19,14 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+private:
+	UPROPERTY(EditAnywhere)
+	float MaxHealth = 100.f;
+	float Health = 0.f;
+
+	UFUNCTION()
+	void DamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType, class AController* Instigator, AActor* DamageCauser);
+	
 
 public:	
 	// Called every frame
