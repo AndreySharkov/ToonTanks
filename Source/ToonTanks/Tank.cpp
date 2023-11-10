@@ -52,7 +52,6 @@ void ATank::Tick(float DeltaTime)
         false, HitResult);
         RotateTurret(HitResult.ImpactPoint);
     }
-    
 
 }
 void ATank::HandleDestruction() 
@@ -81,6 +80,7 @@ void ATank::Move(float Value)
     }
 
     AddActorLocalOffset(DeltaLocation, true);
+
 }
 
 void ATank::Turn(float Value) 
