@@ -31,9 +31,6 @@ void AToonTanksGameMode::ActorDied(AActor* DeadActor)
 void AToonTanksGameMode::BeginPlay()
 {
     Super::BeginPlay();
-    // if(bGamePlayable) {
-        
-    // }
     HandleGameStart();
 }
 void AToonTanksGameMode::HandleGameStart()

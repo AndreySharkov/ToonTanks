@@ -23,8 +23,7 @@ protected:
 	void StartGame();
 	UFUNCTION(BlueprintImplementableEvent)
 	void GameOver(bool bWonGame);
-	// UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Menu")
-	// bool bGamePlayable = true;
+	
 
 private:
 
