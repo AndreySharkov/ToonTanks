@@ -25,6 +25,12 @@ void AToonTanksGameMode::ActorDied(AActor* DeadActor)
         TargetTowers--;
         if (TargetTowers == 0)
         {
+            if (ToonTanksPlayerController)
+            {
+                ToonTanksPlayerController->SetPlayerEnableState(false);
+                ToonTanksPlayerController->bShowMouseCursor = true;
+                
+            }
             GameOver(true);
         }
         
