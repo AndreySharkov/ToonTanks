@@ -5,7 +5,7 @@ A crucial aspect of the game is the ability to adjust the graphics settings, mak
 Overall, the game offers a visually stunning and engaging experience, placing players in the heart of epic battles and strategic challenges.
 
 Technical Execution
-The game "Armored Danger" (Бронева опасност) is developed using the latest version of Unreal Engine 5, with C++ as the primary programming language. The mechanics for the tanks and turrets are based on a single core class, which is then split into two individual classes for the tank and the turret.
+The game "Armored Danger" is developed using the latest version of Unreal Engine 5, with C++ as the primary programming language. The mechanics for the tanks and turrets are based on a single core class, which is then split into two individual classes for the tank and the turret.
 
 An interesting aspect of the game is that all turrets fire at different times and automatically target the tank, creating dynamic and strategic battles. This design adds complexity to the game and provides players with unique challenges in managing their tanks.
 
